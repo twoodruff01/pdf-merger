@@ -1,38 +1,21 @@
-"""
-TODO:
-- Properly configure app for deployment
-- Fix any security shit with file paths
-- Periodically remove files from uploads and downloads (without annoying users)
-
-- Allow numerous uploads in html
-- CSS shit
-
-- Could maybe encrypt PDF's ?
-
-- maybe write a test/build script that includes something like this:
-    find -name "*.pdf" -exec rm {} \;
-    BUT with a directory specified so you don't accidentally delete all your PDF's on your computer
-
-Lot's of help from here:
-https://flask.palletsprojects.com/en/1.1.x/patterns/fileuploads/
-"""
 import os
 import secrets
-
-from flask import Flask, render_template, request, redirect, flash, send_file
+from flask import render_template, redirect, request, flash, send_file
 from werkzeug.utils import secure_filename
-from pdf_operations import merge_pdfs
 
-DOWNLOAD_FOLDER = '/home/tom/Desktop/Github/PDF_Website/downloads'
+from app import app
+from utils.pdf_operations import merge_pdfs
+
+DOWNLOAD_FOLDER = '/home/tom/Desktop/Github/PDF_Website/loads/downloads'
 ALLOWED_EXTENSIONS = {'pdf'}
 
-app = Flask(__name__)
 app.config['SECRET_KEY'] = secrets.token_urlsafe(16)
-app.config['UPLOAD_FOLDER'] = '/home/tom/Desktop/Github/PDF_Website/uploads'
+app.config['UPLOAD_FOLDER'] = '/home/tom/Desktop/Github/PDF_Website/loads/uploads'
 app.config['MAX_CONTENT_PATH'] = 2000000
 
 
 @app.route('/')
+@app.route('/home')
 def home():
     return render_template('home.jinja2')
 
@@ -60,11 +43,7 @@ def merging_page():
         merged_pdf_path = os.path.join(DOWNLOAD_FOLDER, "combined.pdf")  # security issue?
         merge_pdfs(file_paths, merged_pdf_path)
 
-        return send_file("downloads/combined.pdf", as_attachment=True)
+        return send_file(merged_pdf_path, as_attachment=True)  # this path needs fixing
 
     else:
         return render_template('merging_page.jinja2')
-
-
-if __name__ == '__main__':
-    app.run()
