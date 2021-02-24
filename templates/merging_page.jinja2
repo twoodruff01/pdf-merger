@@ -1,0 +1,23 @@
+{% extends 'base.jinja2' %}
+
+{% block content %}
+<h1>Merge PDF's</h1>
+    <form method="POST" enctype = "multipart/form-data">
+        <div>
+            <label>File to merge</label>
+            <input type="file" name="f1" accept=".pdf" placeholder="Choose a file">
+        </div>
+        <div>
+            <label>File to merge</label>
+            <input type="file" name="f2" accept=".pdf" placeholder="Choose a file">
+        </div>
+        <div>
+            <label>File to merge</label>
+            <input type="file" name="f3" accept=".pdf" placeholder="Choose a file">
+        </div>
+        <br>
+        <button type="submit">Add</button>
+    </form>
+{% endblock %}
+
+{#fix this#}
