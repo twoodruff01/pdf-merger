@@ -1,8 +1,6 @@
 {% extends 'base.jinja2' %}
 
-{% block content %}
+{% block app_content %}
 <h1>Home</h1>
-<a href="{{ url_for('merging_page') }}">Merge PDF's</a>
+<a href="{{ url_for('merging.merging_page') }}">Merge PDF's</a>
 {% endblock %}
-
-{#fix this#}

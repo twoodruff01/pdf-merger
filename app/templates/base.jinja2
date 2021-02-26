@@ -1,19 +1,10 @@
-{#https://realpython.com/primer-on-jinja-templating/#}
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <title>Website for learning Flask and deployment</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <style>
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            {% block content %}
+{% extends 'bootstrap/base.html' %}
 
-            {% endblock %}
-        </div>
-    </body>
-</html>
+{% block title %}Website for learning Flask and deployment{% endblock %}
 
-{#fix this#}
+{% block content %}
+    <div class="container">
+
+        {% block app_content %}{% endblock %}
+    </div>
+{% endblock %}

@@ -1,11 +1,13 @@
 """
-Code copied almost verbatim from:
+Copied from:
 https://realpython.com/pdf-python/
 """
 from PyPDF2 import PdfFileReader, PdfFileWriter
+from flask import current_app
 
 
 def merge_pdfs(paths, output):
+    current_app.logger.info('merge_pdfs function called')
     pdf_writer = PdfFileWriter()
 
     for path in paths:
